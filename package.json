@@ -1,0 +1,17 @@
+{
+  "name": "openweather-api-demo",
+  "version": "1.0.0",
+  "description": "A fullstack application that gives you the weather forecast for any searchable city.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Michael Vinogradov",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+  }
+}
