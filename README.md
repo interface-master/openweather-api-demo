@@ -7,3 +7,7 @@ In order to run the project on your localhost for development purposes, you must
 ```
 export OPENWEATHERAPI_APPID="...";  
 ```
+then execute:
+```
+npm run serve
+```
