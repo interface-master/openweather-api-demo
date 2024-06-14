@@ -4,6 +4,7 @@
   "description": "A fullstack application that gives you the weather forecast for any searchable city.",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "jest"
   },
   "author": "Michael Vinogradov",
@@ -14,6 +15,8 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "jsdom": "^24.1.0",
+    "sinon": "^18.0.0",
     "supertest": "^7.0.0"
   }
 }
