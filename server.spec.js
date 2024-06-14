@@ -41,10 +41,9 @@ describe('GET / endpoint', () => {
 });
 
 describe('GET /weather endpoint', () => {
-    const properURL = `/weather?lat=${mockLat}&lon=${mockLon}&appid=${mockAppId}`;
-    const improperURL_missingLat = `/weather?lon=${mockLon}&appid=${mockAppId}`;
-    const improperURL_missingLon = `/weather?lat=${mockLat}&appid=${mockAppId}`;
-    const improperURL_missingId = `/weather?lat=${mockLat}&lon=${mockLon}`;
+    const properURL = `/weather?lat=${mockLat}&lon=${mockLon}`;
+    const improperURL_missingLat = `/weather?lon=${mockLon}`;
+    const improperURL_missingLon = `/weather?lat=${mockLat}`;
 
     beforeEach(() => {
         // enable mocking of calls to OpenWeather
@@ -70,18 +69,12 @@ describe('GET /weather endpoint', () => {
         const response = await request(app).get(improperURL_missingLon);
         expect(response.statusCode).toBe(500);
     });
-
-    it('should fail if the request is missing `appid` prop', async () => {
-        const response = await request(app).get(improperURL_missingId);
-        expect(response.statusCode).toBe(500);
-    });
 });
 
 describe('GET /forecast endpoint', () => {
-    const properURL = `/forecast?lat=${mockLat}&lon=${mockLon}&appid=${mockAppId}`;
-    const improperURL_missingLat = `/forecast?lon=${mockLon}&appid=${mockAppId}`;
-    const improperURL_missingLon = `/forecast?lat=${mockLat}&appid=${mockAppId}`;
-    const improperURL_missingId = `/forecast?lat=${mockLat}&lon=${mockLon}`;
+    const properURL = `/forecast?lat=${mockLat}&lon=${mockLon}`;
+    const improperURL_missingLat = `/forecast?lon=${mockLon}`;
+    const improperURL_missingLon = `/forecast?lat=${mockLat}`;
 
     beforeEach(() => {
         // enable mocking of calls to OpenWeather
@@ -105,11 +98,6 @@ describe('GET /forecast endpoint', () => {
 
     it('should fail if the request is missing `lon` prop', async () => {
         const response = await request(app).get(improperURL_missingLon);
-        expect(response.statusCode).toBe(500);
-    });
-
-    it('should fail if the request is missing `appid` prop', async () => {
-        const response = await request(app).get(improperURL_missingId);
         expect(response.statusCode).toBe(500);
     });
 });
