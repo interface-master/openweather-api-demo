@@ -2,7 +2,6 @@ const express = require('express');
 const axios = require('axios');
 
 const app = express();
-const port = process.env.port || 3000;
 
 const OPENWEATHERAPI_ROOT = 'https://api.openweathermap.org/data/2.5/';
 const OPENWEATHERAPI_WEATHER = OPENWEATHERAPI_ROOT + 'weather';
@@ -36,11 +35,6 @@ app.get('/forecast', async (req, res) => {
     res.status(200).json(data);
 });
 
-// Listening is one of the loudest forms of kindness
-app.listen(port, () => {
-    console.info(`Server listening on port ${port}`);
-});
-
 // Utility functions
 const fetchFromOpenWeather = async (url) => {
     let data, error;
@@ -59,3 +53,6 @@ const fetchFromOpenWeather = async (url) => {
     }
     return [data, error];
 }
+
+// export for Jest
+module.exports = app;
