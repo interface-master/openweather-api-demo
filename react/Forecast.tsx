@@ -1,6 +1,15 @@
+import { useContext } from "react";
+
+import WrapperContext from "./Wrapper.context";
+
 function Forecast() {
+    const { city } = useContext(WrapperContext);
+
     return (
-        <div>Forecast</div>
+        <>
+            <h1>Forecast</h1>
+            <div>Selected City: {city}</div>
+        </>
     )
 }
 
