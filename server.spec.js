@@ -1,7 +1,14 @@
 const app = require('./server.js');
+
+// mocks
 const mockForecastData = require('./__mocks/mockForecastData.json');
 const mockWeatherData = require('./__mocks/mockWeatherData.json');
 
+const mockLat = 1;
+const mockLon = 2;
+const mockAppId = 3;
+
+// dependencies
 const axios = require('axios');
 const jsdom = require('jsdom');
 const sinon = require('sinon');
@@ -34,6 +41,11 @@ describe('GET / endpoint', () => {
 });
 
 describe('GET /weather endpoint', () => {
+    const properURL = `/weather?lat=${mockLat}&lon=${mockLon}&appid=${mockAppId}`;
+    const improperURL_missingLat = `/weather?lon=${mockLon}&appid=${mockAppId}`;
+    const improperURL_missingLon = `/weather?lat=${mockLat}&appid=${mockAppId}`;
+    const improperURL_missingId = `/weather?lat=${mockLat}&lon=${mockLon}`;
+
     beforeEach(() => {
         // enable mocking of calls to OpenWeather
         sandbox = sinon.createSandbox();
@@ -44,13 +56,33 @@ describe('GET /weather endpoint', () => {
         sandbox.restore();
     })
 
-    it('should return weather data', async () => {
-        const response = await request(app).get('/weather');
+    it('should return weather data mock for proper URL', async () => {
+        const response = await request(app).get(properURL);
         expect(response.statusCode).toBe(200);
+    });
+
+    it('should fail if the request is missing `lat` prop', async () => {
+        const response = await request(app).get(improperURL_missingLat);
+        expect(response.statusCode).toBe(500);
+    });
+
+    it('should fail if the request is missing `lon` prop', async () => {
+        const response = await request(app).get(improperURL_missingLon);
+        expect(response.statusCode).toBe(500);
+    });
+
+    it('should fail if the request is missing `appid` prop', async () => {
+        const response = await request(app).get(improperURL_missingId);
+        expect(response.statusCode).toBe(500);
     });
 });
 
 describe('GET /forecast endpoint', () => {
+    const properURL = `/forecast?lat=${mockLat}&lon=${mockLon}&appid=${mockAppId}`;
+    const improperURL_missingLat = `/forecast?lon=${mockLon}&appid=${mockAppId}`;
+    const improperURL_missingLon = `/forecast?lat=${mockLat}&appid=${mockAppId}`;
+    const improperURL_missingId = `/forecast?lat=${mockLat}&lon=${mockLon}`;
+
     beforeEach(() => {
         // enable mocking of calls to OpenWeather
         sandbox = sinon.createSandbox();
@@ -61,8 +93,23 @@ describe('GET /forecast endpoint', () => {
         sandbox.restore();
     })
 
-    it('should return forecast data', async () => {
-        const response = await request(app).get('/forecast');
+    it('should return forecast data mock', async () => {
+        const response = await request(app).get(properURL);
         expect(response.statusCode).toBe(200);
+    });
+
+    it('should fail if the request is missing `lat` prop', async () => {
+        const response = await request(app).get(improperURL_missingLat);
+        expect(response.statusCode).toBe(500);
+    });
+
+    it('should fail if the request is missing `lon` prop', async () => {
+        const response = await request(app).get(improperURL_missingLon);
+        expect(response.statusCode).toBe(500);
+    });
+
+    it('should fail if the request is missing `appid` prop', async () => {
+        const response = await request(app).get(improperURL_missingId);
+        expect(response.statusCode).toBe(500);
     });
 });
