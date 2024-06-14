@@ -9,10 +9,13 @@ const OPENWEATHERAPI_FORECAST = OPENWEATHERAPI_ROOT + 'forecast';
 
 const APPID = process.env.OPENWEATHERAPI_APPID;
 
+// Use static files
+app.use('/', express.static(__dirname + '/dist'));
+
 // Will serve up compiled React UI
 app.get('/', async (req, res) => {
     console.info(`Serving up React UI.`);
-    res.sendFile(__dirname + '/frontend/dist/index.html')
+    res.sendFile(__dirname + '/dist/index.html')
 });
 
 // Will pull WEATHER data from OpenWeather API
