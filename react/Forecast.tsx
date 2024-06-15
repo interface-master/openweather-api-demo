@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import WrapperContext from "./Wrapper.context";
-import WeatherCard from "./WeatherCard";
+import WeatherCardCompact from "./WeatherCardCompact";
 
 function Forecast() {
     const { city, forecastData } = useContext(WrapperContext);
@@ -12,7 +12,7 @@ function Forecast() {
             <div className='forecastWrapper'>
                 {forecastData && (
                     forecastData.map(weatherData => (
-                        <WeatherCard data={weatherData} />
+                        <WeatherCardCompact data={weatherData} />
                     ))
                 )}
             </div>
