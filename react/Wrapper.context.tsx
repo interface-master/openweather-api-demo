@@ -4,15 +4,19 @@ import { IWeatherCard } from './WeatherCard';
 
 interface IWrapperContext {
     city?: ICity;
-    setCity: (city: ICity) => void;
+    forecastData?: IWeatherCard[];
     weatherData?: IWeatherCard;
+    setCity: (city: ICity) => void;
+    setForecastData: (data: IWeatherCard[]) => void;
     setWeatherData: (data: IWeatherCard) => void;
 }
 
 const WrapperContext = createContext<IWrapperContext>({
     city: undefined,
-    setCity: (city) => {},
+    forecastData: undefined,
     weatherData: undefined,
+    setCity: (city) => {},
+    setForecastData: (data) => {},
     setWeatherData: (data) => {},
 });
 
