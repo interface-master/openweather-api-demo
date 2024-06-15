@@ -7,6 +7,8 @@ const OPENWEATHERAPI_ROOT = 'https://api.openweathermap.org/data/2.5/';
 const OPENWEATHERAPI_WEATHER = OPENWEATHERAPI_ROOT + 'weather';
 const OPENWEATHERAPI_FORECAST = OPENWEATHERAPI_ROOT + 'forecast';
 
+const UNITS = 'metric';
+
 const APPID = process.env.OPENWEATHERAPI_APPID;
 
 // Use static files
@@ -65,7 +67,7 @@ const fetchFromOpenWeather = async (url) => {
     let data, error;
     if (APPID) {
         try {
-            const full_url = `${url}&appid=${APPID}`;
+            const full_url = `${url}&units=${UNITS}&appid=${APPID}`;
             const response = await axios.get(full_url);
             data = response.data;
         } catch (e) {
