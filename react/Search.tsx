@@ -18,7 +18,6 @@ const Search = () => {
                 const filtered = cities.filter(c => 
                     c.name.toLowerCase().includes(searchTerm.toLowerCase())
                 );
-                console.log('filtered:',filtered);
                 setFilteredCities(filtered);
             } else {
                 setFilteredCities([]);
@@ -27,7 +26,6 @@ const Search = () => {
     }
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log('setting search term',event.target.value);
         setSearchTerm(event.target.value);
         debounceSearch(event.target.value);
     }
@@ -39,7 +37,6 @@ const Search = () => {
     }
 
     const getFilteredCities = () => {
-        console.log('getting filteredCities',filteredCities);
         return filteredCities.map((c,idx) => {
             if (idx < 10) {
                 return (<li key={idx} onClick={() => handleCitySelected(c)}>
