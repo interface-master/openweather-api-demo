@@ -28,7 +28,8 @@ app.get('/weather', async (req, res) => {
         return;
     }
     // fetch data
-    const [data, error] = await fetchFromOpenWeather(OPENWEATHERAPI_WEATHER);
+    const finalURL = `${OPENWEATHERAPI_WEATHER}?lat=${lat}&lon=${lon}`;
+    const [data, error] = await fetchFromOpenWeather(finalURL);
     if (error) {
         console.error('Error fetching from OpenWeather:', error);
         res.status(500).send('Error fetching weather.');
@@ -48,7 +49,8 @@ app.get('/forecast', async (req, res) => {
         return;
     }
     // fetch data
-    const [data, error] = await fetchFromOpenWeather(OPENWEATHERAPI_FORECAST);
+    const finalURL = `${OPENWEATHERAPI_FORECAST}?lat=${lat}&lon=${lon}`;
+    const [data, error] = await fetchFromOpenWeather(finalURL);
     if (error) {
         console.error('Error fetching from OpenWeather:', error);
         res.status(500).send('Error fetching forecast.');
@@ -63,7 +65,7 @@ const fetchFromOpenWeather = async (url) => {
     let data, error;
     if (APPID) {
         try {
-            const full_url = `${url}?lat=0&lon=0&appid=${APPID}`;
+            const full_url = `${url}&appid=${APPID}`;
             const response = await axios.get(full_url);
             data = response.data;
         } catch (e) {
