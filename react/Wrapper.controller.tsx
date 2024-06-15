@@ -2,12 +2,13 @@ import { useContext, useEffect, useState } from 'react';
 import WrapperContext from './Wrapper.context';
 
 function WrapperController({children}: {children: React.ReactNode}) {
-    const { city, setWeatherData } = useContext(WrapperContext);
+    const { city, setWeatherData, setForecastData } = useContext(WrapperContext);
     const [ error, setError ] = useState(undefined as string | undefined);
 
     useEffect(() => {
         if (city) {
             fetchWeatherData();
+            fetchForecastData();
         }
     }, [city]);
 
@@ -31,6 +32,34 @@ function WrapperController({children}: {children: React.ReactNode}) {
                     icon: jsonData.weather[0].icon,
                 }
                 setWeatherData(weatherCard);
+            } catch (error: any) {
+                setError(error.message);
+            }
+        }
+    }
+
+    const fetchForecastData = async () => {
+        if (city) {
+            const { latitude, longitude } = city;
+            const forecastURL = `/forecast?lat=${latitude}&lon=${longitude}`;
+            try {
+                const response = await fetch(forecastURL);
+                if (!response.ok) {
+                    throw new Error(`Error fetching data: ${response.statusText}`);
+                }
+                const jsonData = await response.json();
+                // build array of WeatherCards from the complete OpenWeather payload
+                if (jsonData?.list?.length > 0) {
+                    const forecastData = jsonData.list.map((i: any) => ({
+                        description: i.weather[0].description,
+                        temp: i.main.temp,
+                        feels_like: i.main.feels_like,
+                        temp_min: i.main.temp_min,
+                        temp_max: i.main.temp_max,
+                        icon: i.weather[0].icon,
+                    }));
+                    setForecastData(forecastData);
+                }
             } catch (error: any) {
                 setError(error.message);
             }
