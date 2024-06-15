@@ -1,6 +1,7 @@
 import './WeatherCard.css';
 
 export interface IWeatherCard {
+    main: string;
     description: string;
     temp: string;
     feels_like: string;
@@ -26,7 +27,7 @@ function WeatherCard({data}: {data: IWeatherCard}) {
                 </div>
             </div>
             <div className='col'>
-                <div className='description'>{data.description}</div>
+                <div className='description'>{data.main}</div>
                 <div className='feels'>Feels like {data.feels_like}&deg;</div>
             </div>
         </div>

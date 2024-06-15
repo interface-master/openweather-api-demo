@@ -24,6 +24,7 @@ function WrapperController({children}: {children: React.ReactNode}) {
                 const jsonData = await response.json();
                 // build WeatherCard payload from the complete OpenWeather payload
                 const weatherCard = {
+                    main: jsonData.weather[0].main,
                     description: jsonData.weather[0].description,
                     temp: jsonData.main.temp,
                     feels_like: jsonData.main.feels_like,
@@ -51,6 +52,7 @@ function WrapperController({children}: {children: React.ReactNode}) {
                 // build array of WeatherCards from the complete OpenWeather payload
                 if (jsonData?.list?.length > 0) {
                     const forecastData = jsonData.list.map((i: any) => ({
+                        main: i.weather[0].main,
                         description: i.weather[0].description,
                         temp: i.main.temp,
                         feels_like: i.main.feels_like,
