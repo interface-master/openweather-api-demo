@@ -4,9 +4,10 @@
   "description": "A fullstack application that gives you the weather forecast for any searchable city.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
     "dev": "webpack serve",
+    "build": "webpack",
     "serve": "node app.js",
+    "buildandserve": "webpack && node app.js",
     "test": "jest"
   },
   "author": "Michael Vinogradov",
