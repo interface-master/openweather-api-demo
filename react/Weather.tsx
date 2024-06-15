@@ -8,8 +8,7 @@ function Weather() {
 
     return (
         <>
-            <h1>Weather</h1>
-            <div>Selected City: {city?.name}</div>
+            <h1>Current Weather</h1>
             {weatherData && (
                 <WeatherCard data={weatherData} />
             )}
