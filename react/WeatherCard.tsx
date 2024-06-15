@@ -27,7 +27,7 @@ function WeatherCard({data}: {data: IWeatherCard}) {
             </div>
             <div className='col'>
                 <div className='description'>{data.description}</div>
-                <div className=''>Feels like {data.feels_like}&deg;</div>
+                <div className='feels'>Feels like {data.feels_like}&deg;</div>
             </div>
         </div>
     )
