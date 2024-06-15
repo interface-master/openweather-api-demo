@@ -38,9 +38,19 @@ module.exports = {
   ],
 
   devServer: {
-    static: path.join(__dirname, "dist"),
+    static: path.join(__dirname, 'dist'),
     compress: true,
     port: 4000,
+    proxy: [
+      {
+        context: ['/weather'],
+        target: 'http://localhost:3000',
+      },
+      {
+        context: ['/forecast'],
+        target: 'http://localhost:3000',
+      },
+    ],
   },
 
   performance: {
