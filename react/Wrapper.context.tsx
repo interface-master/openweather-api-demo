@@ -1,8 +1,14 @@
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
+import { ICity } from 'country-state-city';
 
-const WrapperContext = createContext({
-    city: '',
-    setCity: (city: string) => {},
+interface IWrapperContext {
+    city?: ICity;
+    setCity: (city: ICity) => void;
+}
+
+const WrapperContext = createContext<IWrapperContext>({
+    city: undefined,
+    setCity: (city) => {},
 });
 
 export default WrapperContext;
