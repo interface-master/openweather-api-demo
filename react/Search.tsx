@@ -32,8 +32,7 @@ const Search = () => {
         debounceSearch(event.target.value);
     }
 
-    const handleCitySelected = (selection: string) => {
-        console.log('selected', selection);
+    const handleCitySelected = (selection: ICity) => {
         setCity(selection);
         setSearchTerm('');
         setFilteredCities([]);
@@ -43,7 +42,7 @@ const Search = () => {
         console.log('getting filteredCities',filteredCities);
         return filteredCities.map((c,idx) => {
             if (idx < 10) {
-                return (<li key={idx} onClick={() => handleCitySelected(c.name)}>
+                return (<li key={idx} onClick={() => handleCitySelected(c)}>
                     {c.name}, {c.stateCode}, {c.countryCode}
                 </li>);
             }
@@ -65,7 +64,7 @@ const Search = () => {
                 </ul>
             )}
             
-            <div>Selected City: `{city}`</div>
+            <div>Selected City: `{city?.name}`</div>
         </div>
     )
 }

@@ -8,7 +8,7 @@ function Forecast() {
     return (
         <>
             <h1>Forecast</h1>
-            <div>Selected City: {city}</div>
+            <div>Selected City: {city?.name}</div>
         </>
     )
 }
