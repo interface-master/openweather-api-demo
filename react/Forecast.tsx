@@ -3,6 +3,8 @@ import { useContext } from "react";
 import WrapperContext from "./Wrapper.context";
 import WeatherCardCompact from "./WeatherCardCompact";
 
+import './Forecast.css';
+
 function Forecast() {
     const { city, forecastData } = useContext(WrapperContext);
 
