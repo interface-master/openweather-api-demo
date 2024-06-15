@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import WrapperContext from './Wrapper.context';
 
 function WrapperController({children}: {children: React.ReactNode}) {
-    const { city } = useContext(WrapperContext);
-    const [ weatherData, setWeatherData ] = useState(undefined as JSON | undefined);
+    const { city, setWeatherData } = useContext(WrapperContext);
     const [ error, setError ] = useState(undefined as string | undefined);
 
     useEffect(() => {
@@ -22,7 +21,16 @@ function WrapperController({children}: {children: React.ReactNode}) {
                     throw new Error(`Error fetching data: ${response.statusText}`);
                 }
                 const jsonData = await response.json();
-                setWeatherData(jsonData);
+                // build WeatherCard payload from the complete OpenWeather payload
+                const weatherCard = {
+                    description: jsonData.weather[0].description,
+                    temp: jsonData.main.temp,
+                    feels_like: jsonData.main.feels_like,
+                    temp_min: jsonData.main.temp_min,
+                    temp_max: jsonData.main.temp_max,
+                    icon: jsonData.weather[0].icon,
+                }
+                setWeatherData(weatherCard);
             } catch (error: any) {
                 setError(error.message);
             }
