@@ -1,15 +1,17 @@
 {
     "compilerOptions": {
+        "allowJs": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react-jsx",
-        "lib": ["es2015", "dom"],
-        "module": "CommonJS",
+        "lib": ["esnext", "dom"],
+        "module": "commonjs",
         "moduleResolution": "node",
         "outDir": "dist",
         "sourceMap": true,
         "strict": true,
-        "target": "es5",
+        "target": "esnext",
     },
-    "include": ["react"]
+    "exclude": ["./dist"],
+    "include": ["./react", "./**/*.ts"],
 }
