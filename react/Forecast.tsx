@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import WrapperContext from "./Wrapper.context";
-import WeatherCardCompact from "./WeatherCardCompact";
+import WrapperContext from './Wrapper.context';
+import WeatherCardCompact from './WeatherCardCompact';
 
 import './Forecast.css';
 
