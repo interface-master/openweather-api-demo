@@ -1,4 +1,20 @@
-const app = require('./server.js');
+// hack to fix TextEncoder and TextDecoder not defined
+import { TextEncoder, TextDecoder } from 'util'
+global.TextEncoder = TextEncoder;
+// @ts-expect-error
+global.TextDecoder = TextDecoder;
+
+// dependencies
+import axios from 'axios';
+import jsdom from 'jsdom';
+import sinon from 'ts-sinon';
+import request from 'supertest';
+
+// types
+import { Server } from 'http';
+
+// app
+import app from './server';
 
 // mocks
 const mockForecastData = require('./__mocks/mockForecastData.json');
@@ -8,15 +24,10 @@ const mockLat = 1;
 const mockLon = 2;
 const mockAppId = 3;
 
-// dependencies
-const axios = require('axios');
-const jsdom = require('jsdom');
-const sinon = require('sinon');
-const request = require('supertest');
 
 // enable Jest to start and stop the server
 
-let server;
+let server:Server;
 
 beforeAll(() => {
     server = app.listen(12345);
@@ -33,12 +44,14 @@ describe('GET / endpoint', () => {
         const response = await request(app).get('/');
         const responseText = await response.text;
         const dom = new jsdom.JSDOM(responseText);
-        const title = dom.window.document.querySelector('title').textContent;
+        const title = dom?.window?.document?.querySelector('title')?.textContent;
 
         expect(response.statusCode).toBe(200);
         expect(title).toBe('OpenWeather API Demo Project');
     });
 });
+
+let sandbox: sinon.SinonSandbox;
 
 describe('GET /weather endpoint', () => {
     const properURL = `/weather?lat=${mockLat}&lon=${mockLon}`;

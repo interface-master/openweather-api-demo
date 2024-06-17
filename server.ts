@@ -1,7 +1,12 @@
-const express = require('express');
-const axios = require('axios');
+import express, { Express, Request, Response } from 'express';
+import axios from 'axios';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
 
-const app = express();
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename); 
+
+const app: Express = express();
 
 const OPENWEATHERAPI_ROOT = 'https://api.openweathermap.org/data/2.5/';
 const OPENWEATHERAPI_WEATHER = OPENWEATHERAPI_ROOT + 'weather';
@@ -10,6 +15,7 @@ const OPENWEATHERAPI_FORECAST = OPENWEATHERAPI_ROOT + 'forecast';
 const UNITS = 'metric';
 
 const APPID = process.env.OPENWEATHERAPI_APPID;
+
 
 // Use static files
 app.use('/', express.static(__dirname + '/dist'));
@@ -63,7 +69,7 @@ app.get('/forecast', async (req, res) => {
 });
 
 // Utility functions
-const fetchFromOpenWeather = async (url) => {
+const fetchFromOpenWeather = async (url: string) => {
     let data, error;
     if (APPID) {
         try {
@@ -80,4 +86,4 @@ const fetchFromOpenWeather = async (url) => {
 }
 
 // export for Jest
-module.exports = app;
+export default app;

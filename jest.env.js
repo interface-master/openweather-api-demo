@@ -1,0 +1,1 @@
+process.env.OPENWEATHERAPI_APPID = 'xyz';
