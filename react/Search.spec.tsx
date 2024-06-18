@@ -1,9 +1,16 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 
 import Search from './Search';
-import { ReactNode, createContext, useState } from 'react';
+import { ReactNode } from 'react';
 import WrapperContext, { IWrapperContext } from './Wrapper.context';
+
+const mockSetCity = jest.fn();
+const mockSetForecast = jest.fn();
+const mockSetWeather = jest.fn();
+const renderWithMockContext = (component: ReactNode, initialState: IWrapperContext = { city: {name: 'xyz', countryCode: 'AB', stateCode: 'CD', latitude: '1', longitude: '2' }, setCity: mockSetCity, setForecastData: mockSetForecast, setWeatherData: mockSetWeather }) => {
+    return render(<WrapperContext.Provider value={initialState}>{component}</WrapperContext.Provider>);
+};
 
 test('renders the Search correctly', () => {
     render(<Search />);
@@ -47,13 +54,6 @@ test('displays a list of suggestions', async () => {
 
     jest.useRealTimers(); 
 });
-
-const mockSetCity = jest.fn();
-const mockSetForecast = jest.fn();
-const mockSetWeather = jest.fn();
-const renderWithMockContext = (component: ReactNode, initialState: IWrapperContext = { city: {name: 'xyz', countryCode: 'AB', stateCode: 'CD', latitude: '1', longitude: '2' }, setCity: mockSetCity, setForecastData: mockSetForecast, setWeatherData: mockSetWeather }) => {
-    return render(<WrapperContext.Provider value={initialState}>{component}</WrapperContext.Provider>);
-};
 
 test('updates context with user city selection', async () => {
     jest.useFakeTimers(); 
