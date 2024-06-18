@@ -22,7 +22,7 @@ app.use('/', express.static(__dirname + '/dist'));
 
 // Will serve up compiled React UI
 app.get('/', async (req, res) => {
-    console.info(`Serving up React UI.`);
+    console.info(`${(new Date()).toISOString()}: Serving up React UI.`);
     res.sendFile(__dirname + '/dist/index.html')
 });
 
@@ -31,7 +31,7 @@ app.get('/weather', async (req, res) => {
     // validate input
     const { lat, lon } = req.query;
     if (!lat || !lon) {
-        console.error('Error on /weather endpoint - missing input arguments lat, lon', lat, lon);
+        console.error(`${(new Date()).toISOString()}: Error on /weather endpoint - missing input arguments lat, lon', lat, lon`);
         res.status(500).send('Must provide lat and lon arguments.');
         return;
     }
@@ -43,16 +43,16 @@ app.get('/weather', async (req, res) => {
         // fetch data
         const [data, error] = await fetchFromOpenWeather(finalURL);
         if (error) {
-            console.error('Error fetching from OpenWeather:', error);
+            console.error(`${(new Date()).toISOString()}: Error fetching from OpenWeather:`, error);
             res.status(500).send('Error fetching weather.');
             return;
         } else {
             weatherCache.set(finalURL, data); // cache result
         }
-        console.info(`Serving up ${JSON.stringify(data).length} bytes of weather.`);
+        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(data).length} bytes of weather.`);
         res.status(200).json(data);
     } else {
-        console.info(`Serving up ${JSON.stringify(cacheValue).length} bytes of weather from the cache.`);
+        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(cacheValue).length} bytes of weather from the cache.`);
         res.status(200).json(cacheValue);
     }
 });
@@ -62,7 +62,7 @@ app.get('/forecast', async (req, res) => {
     // validate input
     const { lat, lon } = req.query;
     if (!lat || !lon) {
-        console.error('Error on /forecast endpoint - missing input arguments lat, lon', lat, lon);
+        console.error(`${(new Date()).toISOString()}: Error on /forecast endpoint - missing input arguments lat, lon', lat, lon`);
         res.status(500).send('Must provide lat and lon arguments.');
         return;
     }
@@ -74,16 +74,16 @@ app.get('/forecast', async (req, res) => {
         // fetch data
         const [data, error] = await fetchFromOpenWeather(finalURL);
         if (error) {
-            console.error('Error fetching from OpenWeather:', error);
+            console.error(`${(new Date()).toISOString()}: Error fetching from OpenWeather:`, error);
             res.status(500).send('Error fetching forecast.');
             return;
         } else {
             weatherCache.set(finalURL, data); // cache result
         }
-        console.info(`Serving up ${JSON.stringify(data).length} bytes of forecast.`);
+        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(data).length} bytes of forecast.`);
         res.status(200).json(data);
     } else {
-        console.info(`Serving up ${JSON.stringify(cacheValue).length} bytes of forecast from the cache.`);
+        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(cacheValue).length} bytes of forecast from the cache.`);
         res.status(200).json(cacheValue);
     }
 });

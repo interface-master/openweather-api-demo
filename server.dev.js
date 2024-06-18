@@ -8,15 +8,15 @@ app.use('/', express.static(__dirname + '/dist'));
 
 // Serve up mock Weather and Forecast data
 app.get('/weather', async (req, res) => {
-    console.info(`Serving up mock weather data.`);
+    console.info(`${(new Date()).toISOString()}: Serving up mock weather data.`);
     res.sendFile(__dirname + '/__mocks/mockWeatherData.json');
 });
 
 app.get('/forecast', async (req, res) => {
-    console.info(`Serving up mock forecast data.`);
+    console.info(`${(new Date()).toISOString()}: Serving up mock forecast data.`);
     res.sendFile(__dirname + '/__mocks/mockForecastData.json');
 });
 
 app.listen(port, () => {
-    console.info(`Mock server listening on port ${port}`);
+    console.info(`${(new Date()).toISOString()}: Mock server listening on port ${port}`);
 });
