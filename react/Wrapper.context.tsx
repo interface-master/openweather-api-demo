@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { ICity } from 'country-state-city';
 import { IWeatherCard } from './WeatherCard';
 
-interface IWrapperContext {
+export interface IWrapperContext {
     city?: ICity;
     forecastData?: IWeatherCard[];
     weatherData?: IWeatherCard;
