@@ -11,6 +11,11 @@ const UNITS = 'metric';
 
 const APPID = process.env.OPENWEATHERAPI_APPID;
 
+// Cache API calls to improve performance
+import NodeCache from 'node-cache';
+const weatherCache = new NodeCache({
+    stdTTL: 1800, // 30 minute cache
+});
 
 // Use static files
 app.use('/', express.static(__dirname + '/dist'));
@@ -30,16 +35,26 @@ app.get('/weather', async (req, res) => {
         res.status(500).send('Must provide lat and lon arguments.');
         return;
     }
-    // fetch data
+    // build URL and use it as the key for caching
     const finalURL = `${OPENWEATHERAPI_WEATHER}?lat=${lat}&lon=${lon}`;
-    const [data, error] = await fetchFromOpenWeather(finalURL);
-    if (error) {
-        console.error('Error fetching from OpenWeather:', error);
-        res.status(500).send('Error fetching weather.');
-        return;
+    // check cache
+    const cacheValue = weatherCache.get(finalURL);
+    if (!cacheValue) {
+        // fetch data
+        const [data, error] = await fetchFromOpenWeather(finalURL);
+        if (error) {
+            console.error('Error fetching from OpenWeather:', error);
+            res.status(500).send('Error fetching weather.');
+            return;
+        } else {
+            weatherCache.set(finalURL, data); // cache result
+        }
+        console.info(`Serving up ${JSON.stringify(data).length} bytes of weather.`);
+        res.status(200).json(data);
+    } else {
+        console.info(`Serving up ${JSON.stringify(cacheValue).length} bytes of weather from the cache.`);
+        res.status(200).json(cacheValue);
     }
-    console.info(`Serving up ${JSON.stringify(data).length} bytes of weather.`);
-    res.status(200).json(data);
 });
 
 // Will pull FORECAST data from OpenWeather API
@@ -51,16 +66,26 @@ app.get('/forecast', async (req, res) => {
         res.status(500).send('Must provide lat and lon arguments.');
         return;
     }
-    // fetch data
+    // build URL and use it as the key for caching
     const finalURL = `${OPENWEATHERAPI_FORECAST}?lat=${lat}&lon=${lon}`;
-    const [data, error] = await fetchFromOpenWeather(finalURL);
-    if (error) {
-        console.error('Error fetching from OpenWeather:', error);
-        res.status(500).send('Error fetching forecast.');
-        return;
+    // check cache
+    const cacheValue = weatherCache.get(finalURL);
+    if (!cacheValue) {
+        // fetch data
+        const [data, error] = await fetchFromOpenWeather(finalURL);
+        if (error) {
+            console.error('Error fetching from OpenWeather:', error);
+            res.status(500).send('Error fetching forecast.');
+            return;
+        } else {
+            weatherCache.set(finalURL, data); // cache result
+        }
+        console.info(`Serving up ${JSON.stringify(data).length} bytes of forecast.`);
+        res.status(200).json(data);
+    } else {
+        console.info(`Serving up ${JSON.stringify(cacheValue).length} bytes of forecast from the cache.`);
+        res.status(200).json(cacheValue);
     }
-    console.info(`Serving up ${JSON.stringify(data).length} bytes of forecast.`);
-    res.status(200).json(data);
 });
 
 // Utility functions
