@@ -13,6 +13,18 @@ function WrapperController({children}: {children: React.ReactNode}) {
         }
     }, [city]);
 
+    // poller
+    const tenMinutes = 10 * 60 * 1000; // in milliseconds
+    React.useEffect(() => {
+        const timerId = setInterval(() => {
+            if (city) {
+                fetchWeatherData();
+                fetchForecastData();
+            }
+        }, tenMinutes);
+        return () => clearTimeout(timerId);
+    }, [city]);
+
     const fetchWeatherData = async () => {
         if (city) {
             const { latitude, longitude } = city;
