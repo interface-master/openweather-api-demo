@@ -4,7 +4,7 @@ import WrapperContext from "./Wrapper.context";
 import WeatherCard from "./WeatherCard";
 
 function Weather() {
-    const { city, weatherData } = useContext(WrapperContext);
+    const { weatherData } = useContext(WrapperContext);
 
     return (
         <>
