@@ -13,5 +13,5 @@
         "target": "esnext",
     },
     "exclude": ["./dist"],
-    "include": ["./react", "./**/*.ts"],
+    "include": ["./react", "./**/*.tsx?"],
 }
