@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+// import { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import WrapperContext from './Wrapper.context';
 
 function WrapperController({children}: {children: React.ReactNode}) {
-    const { city, setWeatherData, setForecastData } = useContext(WrapperContext);
-    const [ error, setError ] = useState(undefined as string | undefined);
+    const { city, setWeatherData, setForecastData } = React.useContext(WrapperContext);
+    const [ error, setError ] = React.useState(undefined as string | undefined);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (city) {
             fetchWeatherData();
             fetchForecastData();

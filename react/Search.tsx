@@ -1,10 +1,11 @@
-import { ChangeEvent, ReactElement, useContext, useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { City, ICity } from 'country-state-city';
 
 import WrapperContext from "./Wrapper.context";
 
 const Search = () => {
-    const { city, setCity } = useContext(WrapperContext);
+    const { city, setCity } = React.useContext(WrapperContext);
     const [ searchTerm, setSearchTerm ] = useState('' as string);
     const [ filteredCities, setFilteredCities ] = useState([] as ICity[]);
     const timeoutRef = useRef(undefined as NodeJS.Timeout | undefined);

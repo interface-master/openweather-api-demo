@@ -1,4 +1,5 @@
-import { createContext } from 'react';
+import { ReactNode, createContext } from 'react';
+import { render } from '@testing-library/react';
 import { ICity } from 'country-state-city';
 import { IWeatherCard } from './WeatherCard';
 

@@ -2,15 +2,8 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
 
 import Search from './Search';
-import { ReactNode } from 'react';
-import WrapperContext, { IWrapperContext } from './Wrapper.context';
-
-const mockSetCity = jest.fn();
-const mockSetForecast = jest.fn();
-const mockSetWeather = jest.fn();
-const renderWithMockContext = (component: ReactNode, initialState: IWrapperContext = { city: {name: 'xyz', countryCode: 'AB', stateCode: 'CD', latitude: '1', longitude: '2' }, setCity: mockSetCity, setForecastData: mockSetForecast, setWeatherData: mockSetWeather }) => {
-    return render(<WrapperContext.Provider value={initialState}>{component}</WrapperContext.Provider>);
-};
+import { IWrapperContext } from './Wrapper.context';
+import { WrapperProviderMock, defaultStateMock } from './Wrapper.provider';
 
 test('renders the Search correctly', () => {
     render(<Search />);
@@ -58,7 +51,17 @@ test('displays a list of suggestions', async () => {
 test('updates context with user city selection', async () => {
     jest.useFakeTimers(); 
     
-    renderWithMockContext(<Search />);
+    const setCityMock = jest.fn();
+    const contextMock: IWrapperContext = {
+        ...defaultStateMock,
+        setCity: setCityMock,
+    }
+
+    render(
+        <WrapperProviderMock initialState={contextMock}>
+            <Search />
+        </WrapperProviderMock>
+    );
 
     const searchInput: HTMLInputElement = screen.getByRole('textbox');
 
@@ -73,8 +76,8 @@ test('updates context with user city selection', async () => {
     
     fireEvent.click(thesix);
 
-    expect(mockSetCity).toHaveBeenCalledTimes(1);
-    expect(mockSetCity).toHaveBeenCalledWith(toronto);
+    expect(setCityMock).toHaveBeenCalledTimes(1);
+    expect(setCityMock).toHaveBeenCalledWith(toronto);
 
     jest.useRealTimers(); 
 });

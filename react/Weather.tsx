@@ -1,10 +1,10 @@
-import { useContext } from "react";
+import React from 'react';
 
-import WrapperContext from "./Wrapper.context";
-import WeatherCard from "./WeatherCard";
+import WrapperContext from './Wrapper.context';
+import WeatherCard from './WeatherCard';
 
 function Weather() {
-    const { weatherData } = useContext(WrapperContext);
+    const { weatherData } = React.useContext(WrapperContext);
 
     return (
         <>
