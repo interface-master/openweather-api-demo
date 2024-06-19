@@ -5,12 +5,13 @@ import WeatherCardCompact from './WeatherCardCompact';
 import { IWeatherCard } from './WeatherCard';
 
 const sunnyData: IWeatherCard = {
+    dt: 1718690400,
     main: 'Sunny',
     description: 'Sunny Sunshine',
-    temp: '678',
-    feels_like: '679',
-    temp_min: '600',
-    temp_max: '700',
+    temp: 678,
+    feels_like: 679,
+    temp_min: 600,
+    temp_max: 700,
     icon: '01d',
 }
 
@@ -23,7 +24,7 @@ test('renders the Weather correctly', () => {
     const high = screen.getByTestId('high');
     const low = screen.getByTestId('low');
 
-    expect(temp).toHaveTextContent(sunnyData.temp);
+    expect(temp).toHaveTextContent(sunnyData.temp.toString());
     expect(feels).toHaveTextContent(`(${sunnyData.feels_like}°)`);
     expect(icon.src).toBe(`https://openweathermap.org/img/wn/${sunnyData.icon}@2x.png`);
     expect(icon.alt).toBe(sunnyData.description);

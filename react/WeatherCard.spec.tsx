@@ -4,12 +4,13 @@ import '@testing-library/jest-dom'
 import WeatherCard, { IWeatherCard } from './WeatherCard';
 
 const sunnyData: IWeatherCard = {
+    dt: 1718690400,
     main: 'Sunny',
     description: 'Sunny Sunshine',
-    temp: '678',
-    feels_like: '679',
-    temp_min: '600',
-    temp_max: '700',
+    temp: 678,
+    feels_like: 679,
+    temp_min: 600,
+    temp_max: 700,
     icon: '01d',
 }
 
@@ -23,7 +24,7 @@ test('renders the Weather correctly', () => {
     const main = screen.getByTestId('main');
     const feels = screen.getByTestId('feels');
 
-    expect(temp).toHaveTextContent(sunnyData.temp);
+    expect(temp).toHaveTextContent(sunnyData.temp.toString());
     expect(icon.src).toBe(`https://openweathermap.org/img/wn/${sunnyData.icon}@2x.png`);
     expect(icon.alt).toBe(sunnyData.description);
     expect(high).toHaveTextContent(`High: ${sunnyData.temp_max}`);
