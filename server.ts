@@ -52,7 +52,7 @@ app.get('/weather', async (req, res) => {
             preprocessedData = preprocessWeather(data);
             weatherCache.set(finalURL, preprocessedData); // cache result
         }
-        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(preprocessedData).length} bytes of weather.`);
+        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(preprocessedData).length} (compressed from ${JSON.stringify(data).length}) bytes of weather.`);
         res.status(200).json(preprocessedData);
     } else {
         console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(cacheValue).length} bytes of weather from the cache.`);
@@ -85,7 +85,7 @@ app.get('/forecast', async (req, res) => {
             preprocessedData = preprocessForecast(data);
             weatherCache.set(finalURL, preprocessedData); // cache result
         }
-        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(preprocessedData).length} bytes of forecast.`);
+        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(preprocessedData).length} (compressed from ${JSON.stringify(data).length}) bytes of forecast.`);
         res.status(200).json(preprocessedData);
     } else {
         console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(cacheValue).length} bytes of forecast from the cache.`);
