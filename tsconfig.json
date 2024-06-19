@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "allowJs": true,
+        "baseUrl": "./react",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react-jsx",

@@ -24,6 +24,9 @@ module.exports = {
     ],
   },
   resolve: {
+    alias: {
+      src: path.resolve(__dirname, 'react')
+    },
     extensions: ['.tsx', '.ts', '.js'],
   },
 
