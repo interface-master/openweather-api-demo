@@ -1,5 +1,7 @@
-import express, { Express, Request, Response } from 'express';
 import axios from 'axios';
+import express, { Express } from 'express';
+import NodeCache from 'node-cache';
+import { IWeather, preprocessForecast, preprocessWeather } from './server.utils';
 
 const app: Express = express();
 
@@ -12,7 +14,6 @@ const UNITS = 'metric';
 const APPID = process.env.OPENWEATHERAPI_APPID;
 
 // Cache API calls to improve performance
-import NodeCache from 'node-cache';
 const weatherCache = new NodeCache({
     stdTTL: 1800, // 30 minute cache
 });
@@ -42,15 +43,17 @@ app.get('/weather', async (req, res) => {
     if (!cacheValue) {
         // fetch data
         const [data, error] = await fetchFromOpenWeather(finalURL);
+        let preprocessedData: IWeather | undefined;
         if (error) {
             console.error(`${(new Date()).toISOString()}: Error fetching from OpenWeather:`, error);
             res.status(500).send('Error fetching weather.');
             return;
         } else {
-            weatherCache.set(finalURL, data); // cache result
+            preprocessedData = preprocessWeather(data);
+            weatherCache.set(finalURL, preprocessedData); // cache result
         }
-        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(data).length} bytes of weather.`);
-        res.status(200).json(data);
+        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(preprocessedData).length} bytes of weather.`);
+        res.status(200).json(preprocessedData);
     } else {
         console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(cacheValue).length} bytes of weather from the cache.`);
         res.status(200).json(cacheValue);
@@ -73,15 +76,17 @@ app.get('/forecast', async (req, res) => {
     if (!cacheValue) {
         // fetch data
         const [data, error] = await fetchFromOpenWeather(finalURL);
+        let preprocessedData: IWeather[] | undefined;
         if (error) {
             console.error(`${(new Date()).toISOString()}: Error fetching from OpenWeather:`, error);
             res.status(500).send('Error fetching forecast.');
             return;
         } else {
-            weatherCache.set(finalURL, data); // cache result
+            preprocessedData = preprocessForecast(data);
+            weatherCache.set(finalURL, preprocessedData); // cache result
         }
-        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(data).length} bytes of forecast.`);
-        res.status(200).json(data);
+        console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(preprocessedData).length} bytes of forecast.`);
+        res.status(200).json(preprocessedData);
     } else {
         console.info(`${(new Date()).toISOString()}: Serving up ${JSON.stringify(cacheValue).length} bytes of forecast from the cache.`);
         res.status(200).json(cacheValue);
