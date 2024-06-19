@@ -4,7 +4,7 @@
   "description": "A fullstack application that gives you the weather forecast for any searchable city.",
   "main": "index.js",
   "scripts": {
-    "dev": "node server.dev.js & webpack serve",
+    "dev": "tsx server.dev.ts & webpack serve",
     "build": "webpack",
     "serve": "tsx app.ts",
     "buildandserve": "webpack && tsx app.ts",
