@@ -1,6 +1,6 @@
 {
   "name": "openweather-api-demo",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A fullstack application that gives you the weather forecast for any searchable city.",
   "main": "index.js",
   "scripts": {
