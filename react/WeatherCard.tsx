@@ -1,12 +1,13 @@
 import './WeatherCard.css';
 
 export interface IWeatherCard {
+    dt: number;
     main: string;
     description: string;
-    temp: string;
-    feels_like: string;
-    temp_min: string;
-    temp_max: string;
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
     icon: string;
 }
 

@@ -1,11 +1,13 @@
 // import { useContext, useEffect, useState } from 'react';
 import React from 'react';
 import WrapperContext from './Wrapper.context';
+import { IWeatherCard } from 'WeatherCard';
 
 function WrapperController({children}: {children: React.ReactNode}) {
     const { city, setWeatherData, setForecastData } = React.useContext(WrapperContext);
     const [ error, setError ] = React.useState(undefined as string | undefined);
 
+    // fetch data when city updates in the context
     React.useEffect(() => {
         if (city) {
             fetchWeatherData();
@@ -13,7 +15,7 @@ function WrapperController({children}: {children: React.ReactNode}) {
         }
     }, [city]);
 
-    // poller
+    // poll for fresh data every 10  minutes
     const tenMinutes = 10 * 60 * 1000; // in milliseconds
     React.useEffect(() => {
         const timerId = setInterval(() => {
@@ -25,6 +27,7 @@ function WrapperController({children}: {children: React.ReactNode}) {
         return () => clearTimeout(timerId);
     }, [city]);
 
+    // fetch weather data
     const fetchWeatherData = async () => {
         if (city) {
             const { latitude, longitude } = city;
@@ -34,24 +37,15 @@ function WrapperController({children}: {children: React.ReactNode}) {
                 if (!response.ok) {
                     throw new Error(`Error fetching data: ${response.statusText}`);
                 }
-                const jsonData = await response.json();
-                // build WeatherCard payload from the complete OpenWeather payload
-                const weatherCard = {
-                    main: jsonData.weather[0].main,
-                    description: jsonData.weather[0].description,
-                    temp: jsonData.main.temp,
-                    feels_like: jsonData.main.feels_like,
-                    temp_min: jsonData.main.temp_min,
-                    temp_max: jsonData.main.temp_max,
-                    icon: jsonData.weather[0].icon,
-                }
-                setWeatherData(weatherCard);
+                const weatherData: IWeatherCard = await response.json();
+                setWeatherData(weatherData);
             } catch (error: any) {
                 setError(error.message);
             }
         }
     }
 
+    // fetch forecast data
     const fetchForecastData = async () => {
         if (city) {
             const { latitude, longitude } = city;
@@ -61,20 +55,9 @@ function WrapperController({children}: {children: React.ReactNode}) {
                 if (!response.ok) {
                     throw new Error(`Error fetching data: ${response.statusText}`);
                 }
-                const jsonData = await response.json();
+                const forecastData: IWeatherCard[] = await response.json();
                 // build array of WeatherCards from the complete OpenWeather payload
-                if (jsonData?.list?.length > 0) {
-                    const forecastData = jsonData.list.map((i: any) => ({
-                        main: i.weather[0].main,
-                        description: i.weather[0].description,
-                        temp: i.main.temp,
-                        feels_like: i.main.feels_like,
-                        temp_min: i.main.temp_min,
-                        temp_max: i.main.temp_max,
-                        icon: i.weather[0].icon,
-                    }));
-                    setForecastData(forecastData);
-                }
+                setForecastData(forecastData);
             } catch (error: any) {
                 setError(error.message);
             }
