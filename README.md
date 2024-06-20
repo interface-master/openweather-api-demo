@@ -63,7 +63,8 @@ Then running the container with
 docker run -p 3000:3000 openweather
 ```
 
-# How to dev
+
+# How to Dev
 
 In order to run the project on your localhost for development purposes, first set the OpenWeather API key as an environment variable
 ```
@@ -75,20 +76,26 @@ Then to use Webpack dev server use
 npm run dev
 ```
 
+This will host the webpack build on http://localhost:4000, and a mock server on http://localhost:3000 from which the UI will pull the mock data. This is useful for developing offline when working on the React components.
+
 To build the React project into a `/dist` folder use
 ```
 npm run build
 ```
 
-To run the Express sever that serves the React UI from the `/dist` folder and exposes the `/weather` and `/forecast` endpoints that talk to the OpenWeather API use
+To run the production Express sever that serves the React UI from the `/dist` folder and exposes the `/weather` and `/forecast` endpoints that talk to the OpenWeather API use
 ```
 npm run serve
 ```
+
+This will host the build and server on http://locahost:3000 and host the UI from the root.
 
 You can also build and run the server in one command
 ```
 npm run buildandserve
 ```
+
+## Testing
 
 To test the React project run
 ```
