@@ -1,20 +1,40 @@
-.typeahead h1 {
+.search h1 {
     margin-top: 0;
 }
 
-.typeahead input {
+.search .typeahead {
+    position: relative;
+}
+
+.search .typeahead input {
     border-color: #cfd8dc;
     border-radius: 4px;
     border-width: 1px;
+    box-sizing: border-box;
     font-size: 20px;
+    padding: 8px;
+    width: 100%;
+}
+
+.search .typeahead .suggestions {
+    background-color: white;
+    border: 1ps solid #607d8b;
+    left: 0;
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    top: 24px;
+}
+
+.search .typeahead .suggestions li {
     padding: 8px;
 }
 
-.typeahead .selected {
+.search .selected {
     padding-top: 8px;
     text-align: right;
 }
 
-.typeahead .selected em {
+.search .selected em {
     font-weight: bold;
 }

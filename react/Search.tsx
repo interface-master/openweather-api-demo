@@ -50,27 +50,29 @@ const Search = () => {
     }
 
     return (
-        <div className='typeahead insetWrapper'>
+        <div className='search insetWrapper'>
             <h1>Search</h1>
             
-            <input
-                type='text'
-                value={searchTerm}
-                onChange={handleInputChange}
-                placeholder='Search for any City...'
-            />
-            
-            {city && (
-                <div className='selected'>
-                    Selected City: <em>{city?.name}</em>
-                </div>
-            )}
-            
-            {filteredCities.length > 0 && (
-                <ul className='suggestions'>
-                    {getFilteredCities()}
-                </ul>
-            )}
+            <div className='typeahead'>
+                <input
+                    type='text'
+                    value={searchTerm}
+                    onChange={handleInputChange}
+                    placeholder='Search for any City...'
+                />
+
+                {filteredCities.length > 0 && (
+                    <ul className='suggestions'>
+                        {getFilteredCities()}
+                    </ul>
+                )}
+
+                {city && (
+                    <div className='selected'>
+                        Selected City: <em>{city?.name}</em>
+                    </div>
+                )}
+            </div>
         </div>
     )
 }
