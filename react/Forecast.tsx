@@ -8,18 +8,18 @@ import './Forecast.css';
 function Forecast() {
     const { city, forecastData } = useContext(WrapperContext);
 
-    return (
-        <>
+    return (forecastData)
+    ? (
+        <div className='forecast'>
             <h1>5-day Forecast</h1>
-            <div className='forecastWrapper'>
-                {forecastData && (
-                    forecastData.map(weatherData => (
-                        <WeatherCardCompact data={weatherData} />
-                    ))
-                )}
+            <div className='forecastWrapper insetWrapper'>
+                {forecastData.map(weatherData => (
+                    <WeatherCardCompact data={weatherData} />
+                ))}
             </div>
-        </>
+        </div>
     )
+    : (<></>)
 }
 
 export default Forecast;

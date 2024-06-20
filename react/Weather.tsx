@@ -6,14 +6,16 @@ import WeatherCard from './WeatherCard';
 function Weather() {
     const { weatherData } = React.useContext(WrapperContext);
 
-    return (
-        <>
-            <h1>Current Weather</h1>
-            {weatherData && (
-                <WeatherCard data={weatherData} />
-            )}
-        </>
-    )
+    return (weatherData)
+        ? (
+            <div className='current'>
+                <h1>Current Weather</h1>
+                <div className='insetWrapper'>
+                    <WeatherCard data={weatherData} />
+                </div>
+            </div>
+        )
+        : (<></>);
 }
 
 export default Weather;

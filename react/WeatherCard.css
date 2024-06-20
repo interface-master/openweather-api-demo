@@ -1,17 +1,20 @@
 .weatherCard {
-    border: 1px solid grey;
     border-radius: 5px;
-    padding: 5px;
     font-family: sans-serif;
     justify-content: space-between;
-    max-width: 400px;
+    padding: 5px;
 }
 
 .weatherCard .temp {
+    align-items: center;
+    display: flex;
     font-size: 56px;
     font-weight: bold;
-    display: flex;
-    align-items: center;
+}
+
+.weatherCard .icon {
+    width: 100px;
+    height: 100px;
 }
 
 .weatherCard .highAndLow {
@@ -27,15 +30,4 @@
 .weatherCard .main {
     font-size: 32px;
     padding-bottom: 5px;
-}
-
-.row {
-    display: flex;
-    flex-direction: row;
-}
-
-.col {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }

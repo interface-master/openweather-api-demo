@@ -1,3 +1,23 @@
 body {
     background: #cfd8dc;
+    font-family: sans-serif;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.insetWrapper {
+    background-color: #eceff1;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px inset #607d8b;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
 }

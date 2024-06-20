@@ -4,6 +4,8 @@ import { City, ICity } from 'country-state-city';
 
 import WrapperContext from "./Wrapper.context";
 
+import './Search.css';
+
 const Search = () => {
     const { city, setCity } = React.useContext(WrapperContext);
     const [ searchTerm, setSearchTerm ] = useState('' as string);
@@ -48,21 +50,23 @@ const Search = () => {
     }
 
     return (
-        <div className='typeahead'>
+        <div className='typeahead insetWrapper'>
             <h1>Search</h1>
+            
             <input
                 type='text'
                 value={searchTerm}
                 onChange={handleInputChange}
                 placeholder='Search for any City...'
             />
+            
+            <div className='selected'>Selected City: <em>{city?.name}</em></div>
+            
             {filteredCities.length > 0 && (
                 <ul className='suggestions'>
                     {getFilteredCities()}
                 </ul>
             )}
-            
-            <div>Selected City: `{city?.name}`</div>
         </div>
     )
 }
