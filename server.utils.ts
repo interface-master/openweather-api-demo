@@ -193,6 +193,9 @@ export const preprocessForecast = (data:IForecastAPIData):IWeather[]|undefined =
         const dtms: number = c.dt * 1000;
         // create a mm-dd key
         const key: string = new Date(dtms).getMonth() + '-' + new Date(dtms).getDate();
+        // ignore if this snapshot is for the current day
+        const today: string = new Date().getMonth() + '-' + new Date().getDate();
+        if (key === today) return a;
         // add it to a keyed object
         if (!a[key]) {
             a[key] = c;
@@ -220,6 +223,7 @@ export const preprocessForecast = (data:IForecastAPIData):IWeather[]|undefined =
         return a;
     }, {});
 
+    // create output
     const forecastSummaryByDate: IWeather[] = Object.keys(forecastSummary).map((key: string) => {
         const day = new Date(new Date(forecastSummary[key].dt * 1000).setHours(12)).setMinutes(0);
         const daySummary:IWeather = {
