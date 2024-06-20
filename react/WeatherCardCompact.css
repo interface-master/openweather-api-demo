@@ -1,5 +1,6 @@
 .weatherCardCompact {
-    border: 1px solid grey;
+    background-color: #cfd8dc;
+    border: 1px solid #607d8b;
     border-radius: 5px;
     padding: 5px;
     font-family: sans-serif;

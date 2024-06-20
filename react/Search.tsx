@@ -60,7 +60,11 @@ const Search = () => {
                 placeholder='Search for any City...'
             />
             
-            <div className='selected'>Selected City: <em>{city?.name}</em></div>
+            {city && (
+                <div className='selected'>
+                    Selected City: <em>{city?.name}</em>
+                </div>
+            )}
             
             {filteredCities.length > 0 && (
                 <ul className='suggestions'>

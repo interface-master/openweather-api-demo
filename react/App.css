@@ -13,6 +13,10 @@ body {
     flex-direction: column;
 }
 
+.App {
+    width: 640px;
+}
+
 .insetWrapper {
     background-color: #eceff1;
     border-radius: 8px;

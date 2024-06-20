@@ -1,5 +1,5 @@
 .forecastWrapper {
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
+    justify-content: space-between;
 }
