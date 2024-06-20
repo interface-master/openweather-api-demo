@@ -8,9 +8,6 @@ const app = express();
 const mockWeatherDataPath = __dirname + '/__mocks/mockWeatherData.json';
 const mockForecastDataPath = __dirname + '/__mocks/mockForecastData.json';
 
-// Use static files
-app.use('/', express.static(__dirname + '/dist'));
-
 // Serve up mock Weather and Forecast data
 app.get('/weather', async (req, res) => {
     // v1 - send the file
