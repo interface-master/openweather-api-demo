@@ -11,7 +11,7 @@ const Search = () => {
     const [ searchTerm, setSearchTerm ] = useState('' as string);
     const [ filteredCities, setFilteredCities ] = useState([] as ICity[]);
     const timeoutRef = useRef(undefined as NodeJS.Timeout | undefined);
-    const cities = City.getAllCities();
+    const cities: ICity[] = City.getAllCities();
     
     const debounceSearch = (searchTerm: string) => {
         clearTimeout(timeoutRef.current);
