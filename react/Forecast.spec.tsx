@@ -63,11 +63,18 @@ const contextMock: IWrapperContext = {
     setForecastData: jest.fn(),
 }
 
-jest.spyOn(React, 'useContext').mockReturnValue( contextMock );
-
-test('renders the Forecast correctly', () => {
+test('renders nothing when there is no data', () => {
     render(<Forecast />);
 
-    const heading = screen.getAllByRole('heading')[0];
+    const heading = screen.queryByRole('heading');
+    expect(heading).toBeNull();
+});
+
+test('renders the Forecast correctly', () => {
+    jest.spyOn(React, 'useContext').mockReturnValue( contextMock );
+
+    render(<Forecast />);
+
+    const heading = screen.queryByRole('heading');
     expect(heading).toHaveTextContent('5-day Forecast');
 });
