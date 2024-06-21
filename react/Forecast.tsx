@@ -12,7 +12,7 @@ function Forecast() {
     ? (
         <div className='forecast'>
             <h1>5-day Forecast</h1>
-            <div className='forecastWrapper insetWrapper'>
+            <div className='forecastWrapper'>
                 {forecastData.map(weatherData => (
                     <WeatherCardCompact data={weatherData} />
                 ))}

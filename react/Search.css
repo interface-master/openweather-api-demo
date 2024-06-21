@@ -18,7 +18,8 @@
 
 .search .typeahead .suggestions {
     background-color: white;
-    border: 1ps solid #607d8b;
+    border: 1px solid #607d8b;
+    border-radius: 5px;
     left: 0;
     list-style: none;
     padding: 0;

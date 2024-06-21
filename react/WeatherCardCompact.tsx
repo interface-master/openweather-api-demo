@@ -4,7 +4,7 @@ import './WeatherCardCompact.css';
 
 function WeatherCardCompact({data}: {data: IWeatherCard}) {
     return (
-        <div className='col weatherCardCompact'>
+        <div className='col weatherCardCompact insetWrapper'>
             <div className='row'>
                 <div className='temp' data-testid='temp'>{data.temp}<span>&deg;</span></div>
                 <div className='feels' data-testid='feels'>({data.feels_like}&deg;)</div>
