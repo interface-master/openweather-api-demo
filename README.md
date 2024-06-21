@@ -1,24 +1,38 @@
-# openweather-api-demo
+# OpenWeather API Demo
 
-A demo application for communicating with OpenWeather API.
+A demo application for communicating with the OpenWeather API.
 
-The front-end UI is built on React, while the back-end server is built on Express. Both projects use TypeScript for consistency and type safety. The front-end communicates with the back-end server without any authentication, because it is assumed the two projects would be deployed to the cloud either on the same container, or in separate containers on the same VPC. The back-end server uses the OpenWeather API Key to communicate with the API and return the responses back to the front-end.
+
+## Requirements
+
+The requirements are simple - write an app that gives you the weather for a searchable city. The results should display the current weather and the forecast for the next 5 days. There should also be a polling feature that fetches fresh data every 10 minutes.
+
+We will use the OpenWeather API, which can give the current and forecast weather for any city given the latitude and longitude. We will allow the user to search for any city and given the lat/lon of that city we can retrieve and display the weather information. 
+
+
+## Details
+
+The front-end UI is built on React, while the back-end server is built on Express. Both projects use TypeScript for consistency and type safety. The front-end communicates with the back-end server without any authentication, because it is assumed the two projects would be deployed to the cloud either on the same container (as in this demo), or in separate containers on the same VPC. The back-end server uses the OpenWeather API Key to communicate with the API and after some processing returns the responses back to the front-end.
 
 This architecture is illustrated here:
 
 ```
-[ WEB UI  ]
-[ - - - - ]
-[ React   ]
-     |
+┌─────────┐
+│ WEB UI  │
+│ ┄┄┄┄┄┄┄ │
+│ React   │
+└────┬────┘
+     │
  ( fetch )
-     |
-     |
-     |
-[ SERVICE       ]-( 🔑 )-----( 🔐 )-[ OPENWEATHER API ]
-[ - - - - - - - ]                  [ - - - - - - - - ]
-[ GET /weather  ]                  [ GET /weather    ]
-[ GET /forecast ]                  [ GET /forecast   ]
+     │
+     │
+     │        🔑                    🔐
+┌────┴──────────┐                  ┌─────────────────┐
+│ SERVICE       ├──( fetch )───────┤ OPENWEATHER API │
+│ ┄┄┄┄┄┄┄┄┄┄┄┄┄ │                  │ ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄ │
+│ GET /weather  │                  │ GET /weather    │
+│ GET /forecast │                  │ GET /forecast   │
+└───────────────┘                  └─────────────────┘
 ```
 
 The Web UI is responsible for displaying the data that is returned by the Service. For this reason the UI is built to simply accept the data and display it as-is without any processing.
